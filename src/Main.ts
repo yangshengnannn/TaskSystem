@@ -94,15 +94,15 @@ class Main extends egret.DisplayObjectContainer {
      * 创建游戏场景
      * Create a game scene
      */
-
+    
 
 
     //对话任务面板的ui
-    public static content1 = new egret.TextField();
-    public static content2 = new egret.TextField();
-    public static content3 = new egret.TextField();
-    public static content4 = new egret.TextField();
-    public static button = new egret.TextField();
+    public static dialogPanelContent1 = new egret.TextField();
+    public static dialogPanelContent2 = new egret.TextField();
+    public static dialogPanelContent3 = new egret.TextField();
+    public static dialogPanelContent4 = new egret.TextField();
+    public static dialogPanelButton = new egret.TextField();
 
     public static taskPanelContent1 = new egret.TextField();
     public static taskPanelContent2 = new egret.TextField();
@@ -115,121 +115,270 @@ class Main extends egret.DisplayObjectContainer {
 
     public showPanel(task : Task, tag : String){
 
-        if(tag == "taskpanel not accept" || tag == "taskpanel submit"){
+        //任务面板
+        if(tag == "taskpanel not accept0" || tag == "taskpanel submitted0"){
 
-           Main.taskPanelContent1.x = 100;
+            Main.taskPanelContent1.x = 300;
             Main.taskPanelContent1.y = 50;
-            Main.taskPanelContent1.text = "无任务";
-            Main.n1Emoji.textColor = 0xFFFF00;
+            Main.taskPanelContent1.size = 20;
+            Main.taskPanelContent1.text = "无进行中的任务";
+
             Main.taskPanelContent2.text = "";
             Main.taskPanelContent3.text = "";
             Main.taskPanelContent4.text = "";
 
-        }else if(tag == "taskpanel accept"){
+        }else if(tag == "taskpanel acceptted0" || tag == "taskpanel cansubmit0"){
 
-            Main.taskPanelContent1.x = 0;
+            Main.taskPanelContent1.x = 300;
             Main.taskPanelContent1.y = 50;
-            Main.taskPanelContent1.text = "任务指示: " + task.getName();
-            Main.taskPanelContent2.x = 0;
+            Main.taskPanelContent1.size = 20;
+            Main.taskPanelContent1.text = "任务名称: " + task.getName();
+
+            Main.taskPanelContent2.x = 300;
             Main.taskPanelContent2.y = 100;
-            Main.taskPanelContent2.text = "发布任务江云一号: " + task.getFromNpcId();
-            Main.taskPanelContent3.x = 0;
+            Main.taskPanelContent2.size = 20;
+            Main.taskPanelContent2.text = "发布任务NPC: " + task.getFromNpcId();
+
+            Main.taskPanelContent3.x = 300;
             Main.taskPanelContent3.y = 150;
-            Main.taskPanelContent3.text = "完成任务江云二号: " + task.getToNpcId();
-            Main.taskPanelContent4.x = 0;
+            Main.taskPanelContent3.size = 20;
+            Main.taskPanelContent3.text = "完成任务NPC: " + task.getToNpcId();
+
+            Main.taskPanelContent4.x = 300;
             Main.taskPanelContent4.y = 200;
-            Main.taskPanelContent4.text = "完成任务状态： " + task.getStatus();
+            Main.taskPanelContent4.size = 20;
+            Main.taskPanelContent4.text = "任务状态： " + task.getStatus();
 
         }
 
-        if (tag == "accept") {
-            Main.content1.x = 100;
-            Main.content1.y = 300;
-            Main.content1.text = "任务指示: " + task.getName();
-            Main.content2.x = 100;
-            Main.content2.y = 350;
-            Main.content2.text = "发布任务江云一号: " + task.getFromNpcId();
-            Main.content3.x = 100;
-            Main.content3.y = 400;
-            Main.content3.text = "完成任务江云二号: " + task.getToNpcId();
-            Main.content4.x = 100;
-            Main.content4.y = 450;
-            Main.content4.text = "完成任务状态： " + task.getStatus();
-            Main.button.x = 100;
-            Main.button.y = 500;
-            Main.button.text = "接受任务";
-            Main.button.touchEnabled = true;
-            Main.button.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
-            Main.n1Emoji.textColor = 0xFFFF00;
-                
-                TaskService.getInstance().accept(task.getId());
-                Main.button.text = "";
-                Main.content1.text = "";
-                Main.content2.text = "";
-                Main.content3.text = "";
-                Main.content4.text = "";
+        if(tag == "taskpanel not accept1" || tag == "taskpanel submitted1"){
+
+            Main.taskPanelContent1.x = 300;
+            Main.taskPanelContent1.y = 50;
+            Main.taskPanelContent1.size = 20;
+            Main.taskPanelContent1.text = "无进行中的任务";
+
+            Main.taskPanelContent2.text = "";
+            Main.taskPanelContent3.text = "";
+            Main.taskPanelContent4.text = "";
+
+        }else if(tag == "taskpanel acceptted1" || tag == "taskpanel cansubmit1"){
+
+            Main.taskPanelContent1.x = 300;
+            Main.taskPanelContent1.y = 50;
+            Main.taskPanelContent1.size = 20;
+            Main.taskPanelContent1.text = "任务名称: " + task.getName();
+
+            Main.taskPanelContent2.x = 300;
+            Main.taskPanelContent2.y = 100;
+            Main.taskPanelContent2.size = 20;
+            Main.taskPanelContent2.text = "发布任务NPC: " + task.getFromNpcId();
+
+            Main.taskPanelContent3.x = 300;
+            Main.taskPanelContent3.y = 150;
+            Main.taskPanelContent3.size = 20;
+            Main.taskPanelContent3.text = "完成任务NPC: " + task.getToNpcId();
+
+            Main.taskPanelContent4.x = 300;
+            Main.taskPanelContent4.y = 200;
+            Main.taskPanelContent4.size = 20;
+            Main.taskPanelContent4.text = "任务状态： " + task.getStatus();
+
+        }
+
+
+        //对话面板
+        if(tag == "accept0"){
+
+            Main.dialogPanelContent1.x = 100;
+            Main.dialogPanelContent1.y = 600;
+            Main.dialogPanelContent1.text = "任务名称: " + task.getName();
+
+            Main.dialogPanelContent2.x = 200;
+            Main.dialogPanelContent2.y = 650;
+            Main.dialogPanelContent2.text = "发布任务NPC: " + task.getFromNpcId();
+
+            Main.dialogPanelContent3.x = 200;
+            Main.dialogPanelContent3.y = 700;
+            Main.dialogPanelContent3.text = "完成任务NPC: " + task.getToNpcId();
+
+            Main.dialogPanelContent4.x = 200;
+            Main.dialogPanelContent4.y = 750;
+            Main.dialogPanelContent4.text = "任务状态： " + task.getStatus();
+            
+            Main.dialogPanelButton.x = 300;
+            Main.dialogPanelButton.y = 800;
+            Main.dialogPanelButton.text = "接受";
+            Main.dialogPanelButton.touchEnabled = true;
+            Main.dialogPanelButton.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
+
+                Main.dialogPanelButton.text = "";
+                Main.dialogPanelContent1.text = "";
+                Main.dialogPanelContent2.text = "";
+                Main.dialogPanelContent3.text = "";
+                Main.dialogPanelContent4.text = "";
+                task.onAccept();
+
 
             },this);
    
-        }else if(tag == "finish"){
+        }else if(tag == "finish0"){
 
-            Main.content1.x = 100;
-            Main.content1.y = 600;
-            Main.content1.text = "任务指示: " + task.getName();
+            Main.dialogPanelContent1.x = 100;
+            Main.dialogPanelContent1.y = 600;
+            Main.dialogPanelContent1.text = "任务名称: " + task.getName();
 
-            Main.content2.x = 200;
-            Main.content2.y = 650;
-            Main.content2.text = "发布任务江云一号: " + task.getFromNpcId();
+            Main.dialogPanelContent2.x = 200;
+            Main.dialogPanelContent2.y = 650;
+            Main.dialogPanelContent2.text = "发布任务NPC: " + task.getFromNpcId();
 
-            Main.content3.x = 200;
-            Main.content3.y = 700;
-            Main.content3.text = "完成任务江云二号: " + task.getToNpcId();
+            Main.dialogPanelContent3.x = 200;
+            Main.dialogPanelContent3.y = 700;
+            Main.dialogPanelContent3.text = "完成任务NPC: " + task.getToNpcId();
 
-            Main.content4.x = 200;
-            Main.content4.y = 750;
-            Main.content4.text = "完成任务状态： " + task.getStatus();
+            Main.dialogPanelContent4.x = 200;
+            Main.dialogPanelContent4.y = 750;
+            Main.dialogPanelContent4.text = "任务状态： " + task.getStatus();
 
-            Main.button.x = 300;
-            Main.button.y = 800;
-            Main.button.text = "完成";
-            Main.button.touchEnabled = true;
-            Main.button.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
+            Main.dialogPanelButton.x = 300;
+            Main.dialogPanelButton.y = 800;
+            Main.dialogPanelButton.text = "完成";
+            Main.dialogPanelButton.touchEnabled = true;
+            Main.dialogPanelButton.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
 
-                
-                TaskService.getInstance().finish(task.getId());
-                Main.button.text = "";
-                Main.content1.text = "";
-                Main.content2.text = "";
-                Main.content3.text = "";
-                Main.content4.text = "";
+                Main.dialogPanelButton.text = "";
+                Main.dialogPanelContent1.text = "";
+                Main.dialogPanelContent2.text = "";
+                Main.dialogPanelContent3.text = "";
+                Main.dialogPanelContent4.text = "";
+                task.onSubmit();
+
 
             },this);
         }
 
+        if(tag == "accept1"){
+
+
+            Main.dialogPanelContent1.x = 100;
+            Main.dialogPanelContent1.y = 600;
+            Main.dialogPanelContent1.text = "任务名称: " + task.getName();
+
+            Main.dialogPanelContent2.x = 200;
+            Main.dialogPanelContent2.y = 650;
+            Main.dialogPanelContent2.text = "发布任务NPC: " + task.getFromNpcId();
+
+            Main.dialogPanelContent3.x = 200;
+            Main.dialogPanelContent3.y = 700;
+            Main.dialogPanelContent3.text = "完成任务NPC: " + task.getToNpcId();
+
+            Main.dialogPanelContent4.x = 200;
+            Main.dialogPanelContent4.y = 750;
+            Main.dialogPanelContent4.text = "任务状态： " + task.getStatus();
+            
+            Main.dialogPanelButton.x = 300;
+            Main.dialogPanelButton.y = 800;
+            Main.dialogPanelButton.text = "接受";
+            Main.dialogPanelButton.touchEnabled = true;
+            Main.dialogPanelButton.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
+
+            Main.n1Emoji.text = "";
+            Main.dialogPanelButton.text = "";
+            Main.dialogPanelContent1.text = "";
+            Main.dialogPanelContent2.text = "";
+            Main.dialogPanelContent3.text = "";
+            Main.dialogPanelContent4.text = "";
+            task.onAccept();
+
+        },this);
+
+    }else if(tag == "finish1"){
+
+            Main.dialogPanelContent1.x = 100;
+            Main.dialogPanelContent1.y = 600;
+            Main.dialogPanelContent1.text = "任务名称: " + task.getName();
+
+            Main.dialogPanelContent2.x = 200;
+            Main.dialogPanelContent2.y = 650;
+            Main.dialogPanelContent2.text = "发布任务NPC: " + task.getFromNpcId();
+
+            Main.dialogPanelContent3.x = 200;
+            Main.dialogPanelContent3.y = 700;
+            Main.dialogPanelContent3.text = "完成任务NPC: " + task.getToNpcId();
+
+            Main.dialogPanelContent4.x = 200;
+            Main.dialogPanelContent4.y = 750;
+            Main.dialogPanelContent4.text = "任务状态： " + task.getStatus();
+
+            Main.dialogPanelButton.x = 300;
+            Main.dialogPanelButton.y = 800;
+            Main.dialogPanelButton.text = "完成";
+            Main.dialogPanelButton.touchEnabled = true;
+            Main.dialogPanelButton.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
+
+                Main.dialogPanelButton.text = "";
+                Main.dialogPanelContent1.text = "";
+                Main.dialogPanelContent2.text = "";
+                Main.dialogPanelContent3.text = "";
+                Main.dialogPanelContent4.text = "";
+                task.onSubmit();
+            },this);
     }
+
+}
+
+
 
     public showEmoji(emoji : String){
 
-        if(emoji == "yellow !"){
-
-            Main.n0Emoji.text = "!";
-            Main.n0Emoji.x =70;
-            Main.n0Emoji.y = 100;
-            Main.n0Emoji.size = 60;
+        //task0
+        if(emoji == "yellow !0"){
+           
+            Main.n0Emoji.text = "黄色叹号";
+            Main.n0Emoji.x = 40;
+            Main.n0Emoji.y = 220;
+            Main.n0Emoji.size = 20;
             Main.n0Emoji.textColor = 0xFFFF00;
+            
 
-        }else if(emoji == "yellow ?"){
+        }else if(emoji == "yellow ?0"){
 
             Main.n0Emoji.text = "";
 
 
-            Main.n1Emoji.text = "?";
-            Main.n1Emoji.x = 360;
-            Main.n1Emoji.y = 310;
-            Main.n1Emoji.size = 60;
+            Main.n1Emoji.text = "黄色问号";
+            Main.n1Emoji.x = 340;
+            Main.n1Emoji.y = 530;
+            Main.n1Emoji.size = 20;
             Main.n1Emoji.textColor = 0xFFFF00;
 
-        }else if(emoji == ""){
+        }else if(emoji == "0"){
+
+            Main.n0Emoji.text = "";
+            Main.n1Emoji.text = "";
+        }
+
+        
+        //task1
+        if(emoji == "yellow !1"){
+
+            Main.n1Emoji.text = "黄色叹号";
+            Main.n1Emoji.x = 340;
+            Main.n1Emoji.y = 530;
+            Main.n1Emoji.size = 20;
+            Main.n1Emoji.textColor = 0xFFFF00;
+
+        }else if(emoji == "yellow ?1"){
+
+            Main.n1Emoji.text = "";
+
+            Main.n0Emoji.text = "黄色问号";
+            Main.n0Emoji.x = 40;
+            Main.n0Emoji.y = 220;
+            Main.n0Emoji.size = 20;
+            Main.n0Emoji.textColor = 0xFFFF00;
+
+        }else if(emoji == "1"){
 
             Main.n0Emoji.text = "";
             Main.n1Emoji.text = "";
@@ -239,7 +388,13 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private createGameScene():void {
-        var background = this.createBitmapByName("back_jpg");
+
+        var bg:egret.Shape = new egret.Shape()
+        bg.graphics.beginFill( 0x336699 );
+        bg.graphics.drawRect( 0, 0, this.stage.stageWidth, this.stage.stageHeight ); 
+        bg.graphics.endFill();
+        this.addChild(bg);
+
         this.touchEnabled = true;
 
         var NPC0 = new NPC("npc_0");
@@ -249,46 +404,66 @@ class Main extends egret.DisplayObjectContainer {
         var taskAllTimePanel = new TaskPanel("taskpanel");
         var taskService = TaskService.getInstance();
 
-        var task = new Task("0", "快去和男神江云交谈！！！！！", TaskStatus.ACCEPTABLE, "npc_0", "npc_1");
+        var task = new Task("0", "将消息传递给另一个NPC", TaskStatus.ACCEPTABLE, "npc_0", "npc_1", "talk");
+        var task1 = new Task("1", "杀10只怪", TaskStatus.UNACCEPTABLE, "npc_1", "npc_0", "kill");
 
 
         var N0 = this.createBitmapByName("NPC_jpg");
         N0.width = 156;
-        N0.height = 198;      
-        N0.x = 0;
-        N0.y = 700;
+        N0.height = 198;
         N0.touchEnabled = true;
         N0.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
 
             Main.click = true;
             TaskService.getInstance().notify(task);
+            TaskService.getInstance().notify(task1);
             
         }, this);
 
         this.addChild(N0);
 
         var N1 = this.createBitmapByName("NPC_jpg");
-        N1.x = 700;
-        N1.y = 700;
+        N1.x = 300;
+        N1.y = 300;
         N1.width = 156;
         N1.height = 198;
         N1.touchEnabled = true;
         N1.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
 
+           
             Main.click = true;
             TaskService.getInstance().notify(task);
+            TaskService.getInstance().notify(task1);
             
         }, this);
         this.addChild(N1);
 
 
+        var killButton = new KillButton();
+        var sceneService = SceneService.getInstance();
+        sceneService.addObserver(killButton);
+
+
+        var killButtonText = new egret.TextField();
+        killButtonText.x = 200;
+        killButtonText.y = 1000;
+        killButtonText.text = "杀怪"
+        killButtonText.touchEnabled = true;
+        killButtonText.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
+
+            //相当于杀了怪
+            sceneService.notify();
+
+        },this);
+
+        this.addChild(killButtonText);
         this.addChild(Main.n0Emoji);
         this.addChild(Main.n1Emoji);
-        this.addChild(Main.content1);
-        this.addChild(Main.content2);
-        this.addChild(Main.content3);
-        this.addChild(Main.content4);
-        this.addChild(Main.button);
+        this.addChild(Main.dialogPanelContent1);
+        this.addChild(Main.dialogPanelContent2);
+        this.addChild(Main.dialogPanelContent3);
+        this.addChild(Main.dialogPanelContent4);
+        this.addChild(Main.dialogPanelButton);
 
         this.addChild(Main.taskPanelContent1);
         this.addChild(Main.taskPanelContent2);
@@ -296,13 +471,12 @@ class Main extends egret.DisplayObjectContainer {
         this.addChild(Main.taskPanelContent4);
 
 
-
-
         taskService.addObserver(NPC0);
         taskService.addObserver(NPC1);
         taskService.addObserver(taskPanel);
         taskService.addObserver(taskAllTimePanel);
         taskService.addTask(task);
+        taskService.addTask(task1);
 
         taskService.getTaskByCustomRule(function(taskList : Task[]) : Task{
 
@@ -314,8 +488,7 @@ class Main extends egret.DisplayObjectContainer {
                     return taskList[i];
                 }
             }
-        });
-        
+        });  
         
     }
 
@@ -371,13 +544,6 @@ class Main extends egret.DisplayObjectContainer {
     private changeDescription(textfield:egret.TextField, textFlow:Array<egret.ITextElement>):void {
         textfield.textFlow = textFlow;
     }
-
-
-        private  touchNPC1(evt:egret.TouchEvent) {
-
-            console.log("click");
-
-        }
 }
 
 
